@@ -1,10 +1,14 @@
 #pragma once 
 #include "Event.h"
+#include "Node.h"
 
 class LinkedList
-{
+{   
+    private:
+        Node* head;
     public:
-       void orderedInsert(Event);
-
+        LinkedList();
+        void orderedInsert(Event*);
+        void removeEvent();
 
 };
