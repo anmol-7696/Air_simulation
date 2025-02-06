@@ -9,6 +9,15 @@ Node* Node::getNext()
     return next;
 }
 
+Event* Node::getEvent()
+{
+    return event;
+}
+
+void Node::setNext(Node* n)
+{
+    this->next = n;
+}
 void Node::print()
 {
     

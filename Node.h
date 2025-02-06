@@ -13,5 +13,7 @@ class Node
 
         //Instance methods
         Node* getNext();
+        void setNext(Node*);
+        Event* getEvent();
         void print();
 };
