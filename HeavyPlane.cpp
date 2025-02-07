@@ -6,4 +6,5 @@ HeavyPlane::HeavyPlane(string name, int num, int atc, string type)
     this->setFlight(num);
     this->setAtc(atc);
     this->setType(type);
+    this->setTurbulence(2);
 }

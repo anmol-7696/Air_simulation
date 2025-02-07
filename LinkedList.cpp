@@ -25,3 +25,7 @@ void LinkedList::orderedInsert(Event* e) {
     newNode->setNext(curr->getNext());
     curr->setNext(newNode);
 }
+
+bool LinkedList::isEmpty(){
+    return head == nullptr;
+}

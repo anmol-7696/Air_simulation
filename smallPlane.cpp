@@ -5,4 +5,5 @@ SmallPlane::SmallPlane(string name, int flight, int atc, string type){
     this->setFlight(flight);
     this->setAtc(atc);
     this->setType(type);
+    this->setTurbulence(0);
 }

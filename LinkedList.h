@@ -10,5 +10,6 @@ class LinkedList
         LinkedList();
         void orderedInsert(Event*);
         void removeEvent();
+        bool isEmpty();
 
 };

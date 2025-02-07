@@ -3,7 +3,7 @@
 
 using namespace std;
 
-Plane::Plane(){}
+Plane::Plane() {}
 
 Plane::Plane(string name, int flight, int atc)
 {
@@ -30,4 +30,31 @@ void Plane::setAtc(int id)
 void Plane::setType(string type)
 {
     this->type = type;
+}
+
+void Plane::setTurbulence(int turbulence)
+{
+    this->turbulence = turbulence;
+}
+
+string Plane::getName()
+{
+    return name;
+}
+
+int Plane::getFlight()
+{
+    return flightNum;
+}
+int Plane::getAtc()
+{
+    return atcId;
+}
+string Plane::getType()
+{
+    return type;
+}
+int Plane::getTurbulence()
+{
+    return turbulence;
 }
