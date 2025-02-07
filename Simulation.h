@@ -12,7 +12,7 @@ class Simulation
 
     public:
         Simulation();
-        void createEvent();
+        void scheduleEvent(Event* event);
         void processEvent();
         void completeEvent();
         void readLine(string);
