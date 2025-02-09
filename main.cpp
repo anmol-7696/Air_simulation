@@ -72,7 +72,7 @@ void processFile(string fileName, vector<Runway>& runways, Simulation* sim)
 
         if (e) {
             // Schedule the event in Simulation
-            sim->scheduleEvent(e);
+            sim->scheduleEvent(e,runways);
         }
 
         // Process events before reading the next line
