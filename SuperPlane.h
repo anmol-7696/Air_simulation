@@ -6,5 +6,5 @@ class SuperPlane : public Plane
     private: 
           string type;
     public:
-          SuperPlane(string,int,int,string);      
+           SuperPlane(string,string,int,string);
 };

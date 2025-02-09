@@ -1,10 +1,9 @@
 #include "HeavyPlane.h"
 
-HeavyPlane::HeavyPlane(string name, int num, int atc, string type)
-{
+HeavyPlane::HeavyPlane(string name, string flight, int atc, string type){
     this->setName(name);
-    this->setFlight(num);
+    this->setFlight(flight);
     this->setAtc(atc);
     this->setType(type);
-    this->setTurbulence(2);
+    this->setTurbulence(0);
 }

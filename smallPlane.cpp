@@ -1,6 +1,6 @@
 #include "SmallPlane.h"
 
-SmallPlane::SmallPlane(string name, int flight, int atc, string type){
+SmallPlane::SmallPlane(string name, string flight, int atc, string type){
     this->setName(name);
     this->setFlight(flight);
     this->setAtc(atc);

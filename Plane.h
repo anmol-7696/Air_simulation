@@ -8,7 +8,7 @@ class Plane
 {   
     private:
            string name;
-           int flightNum;
+           string flightNum;
            int atcId;
            int turbulence;
            string type;
@@ -19,14 +19,14 @@ class Plane
            
            //setters
            void setName(string);
-           void setFlight(int);
+           void setFlight(string);
            void setAtc(int);
            void setType(string);
            void setTurbulence(int);
 
            //getters
            string getName();
-           int getFlight();
+           string getFlight();
            int getAtc();
            string getType();
            int getTurbulence();

@@ -6,5 +6,5 @@ using namespace std;
 class SmallPlane: public Plane
 {   
     public:
-          SmallPlane(string,int,int,string);
+          SmallPlane(string,string,int,string);
 };

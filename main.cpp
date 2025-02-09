@@ -1,75 +1,90 @@
 #include <iostream>
-#include <sstream> //necessary for using stringstream
-#include <fstream> //necessary to use ifstream (to open a file)
+#include <sstream>
+#include <fstream>
 #include <string>
-#include <iostream>
-
+#include <vector>
 
 using namespace std;
-
 
 #include "Simulation.h"
 #include "Runway.h"
+#include "Plane.h"
+#include "SmallPlane.h"
 
-using namespace std;
+int runwaysInUse = 0; // Counter to keep track of runways under use 
+int atcId = 1;
 
-void readLine(string fileName, vector<Runway>);
+void processFile(string fileName, vector<Runway>& runways, Simulation* sim);
+Event* createEvent(int t, string callsign, string num, string size, string request);
 
 int main(int argc, char* argv[])
 {
-	if(argc != 3)
-	{
-		cout<<"USAGE: FileReadingExample.exe filename numRunways"<<endl;
-		cout<<"where numRunways is an integer > 0."<<endl;
-		return 0;
-	}
+    if (argc != 3)
+    {
+        cout << "USAGE: FileReadingExample.exe filename numRunways" << endl;
+        cout << "where numRunways is an integer > 0." << endl;
+        return 0;
+    }
 
-	string filename = argv[1]; // fileName
-	int numRunways = stoi(argv[2]); // runway number 
+    string filename = argv[1];
+    int numRunways = stoi(argv[2]);
 
     vector<Runway> runways(numRunways);
 
-    for(int i=0; i<numRunways; i++){
-        runways[i] =  Runway();
+    for (int i = 0; i < numRunways; i++) {
+        runways[i] = Runway();
     }
-	
-	
-	//
-	//Opening the file, reading one line (just the first one of the file here) and parsing it
-	//
 
+    // Create Simulation object
     Simulation* S = new Simulation();
-    readLine(filename, runways);
 
-	 //grabbing the next token (reading request type, either landing or takeoff)
+    // Read and process events from file
+    processFile(filename, runways, S);
 
+    delete S;
+    return 0;
 }
 
-void readLine(string fileName, vector<Runway>){
-    ifstream inputFile;
-	inputFile.open(fileName);  // opening the file for reading
-	string line;
-	
-	cout << "The first line of the file contains the following information: " << endl;
-	
-	if(getline(inputFile, line))  //gets the next line from the file and saves it in 'line', if there is one
-	{ 
-		stringstream sst(line);  //stringstream allows us to parse the line token by token (kind of like a Scanner in Java)
-		string token;
-		int time = 0;
-		string callSign = "";
-		string flightNum = "";
-		string size = "";
-		string requestType = "";
-		
-		sst >> token;  //grabbing the next token (reading time)
-		time = stoi(token); //converting time (string format) to an int
-		sst >> callSign;  //grabbing the next token (reading call sign)
-		sst >> flightNum;  //grabbing the next token (reading flight number)
-		sst >> size;  //grabbing the next token (reading plane size)
-		sst >> requestType;  //grabbing the next token (reading request type, either landing or takeoff)
+void processFile(string fileName, vector<Runway>& runways, Simulation* sim)
+{
+    ifstream inputFile(fileName);
+    string line;
+
+    if (!inputFile) {
+        cerr << "Error opening file: " << fileName << endl;
+        return;
     }
 
+    while (getline(inputFile, line)) // Read each line
+    {
+        stringstream sst(line);
+        string token;
+        int time = 0;
+        string callSign, flightNum, size, requestType;
+
+        sst >> token;
+        time = stoi(token);
+        sst >> callSign >> flightNum >> size >> requestType;
+
+        // Create event
+        Event* e = sim->createEvent(time, callSign, flightNum, size, requestType,atcId);
+		atcId++;
+
+        if (e) {
+            // Schedule the event in Simulation
+            sim->scheduleEvent(e);
+        }
+
+        // Process events before reading the next line
+        //while (sim->hasPendingEvents()) {
+        //    sim->processNextEvent();
+        //}
+    }
+
+    inputFile.close();
 }
+
+
+
 
 

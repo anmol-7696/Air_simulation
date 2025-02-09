@@ -12,10 +12,12 @@ class Simulation
 
     public:
         Simulation();
-        void scheduleEvent(Event* event);
+        Event* createEvent(int, string, string, string, string,int);
+        void scheduleEvent(Event*,vector<Runway>&);
         void processEvent();
         void completeEvent();
         void readLine(string);
+        Runway* getAvailableRunway(vector<Runway>&);
 
         //getters
         LinkedList* getPriorityQ();

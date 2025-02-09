@@ -17,9 +17,9 @@ void Plane::setName(string name)
     this->name = name;
 }
 
-void Plane::setFlight(int num)
+void Plane::setFlight(string flight)
 {
-    this->flightNum = num;
+    this->flightNum = flight;
 }
 
 void Plane::setAtc(int id)
@@ -42,7 +42,7 @@ string Plane::getName()
     return name;
 }
 
-int Plane::getFlight()
+string Plane::getFlight()
 {
     return flightNum;
 }

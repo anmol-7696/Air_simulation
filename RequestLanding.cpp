@@ -1,9 +1,9 @@
-#include "RequestTakeoff.h"
+#include "RequestLanding.h"
 #include <iostream>
 
 using namespace std;
 
-RequestTakeoff::RequestTakeoff(int time, Plane *p){
+RequestLanding::RequestLanding(int time, Plane *p){
       this->setPlane(p);
       this->setTime(time);
       cout << "TIME: " + to_string(time) + " -> " + p->getName() + " " + 
@@ -11,6 +11,6 @@ RequestTakeoff::RequestTakeoff(int time, Plane *p){
       p->getType() + " ready for takeoff" << endl;
 }
 
-int RequestTakeoff::timeReq(){
+int RequestLanding::timeReq(){
     return 0;
 }

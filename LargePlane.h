@@ -6,5 +6,5 @@ class LargePlane : public Plane
     private: 
           string type;
     public:
-          LargePlane(string,int,int,string);      
+           LargePlane(string,string,int,string);
 };

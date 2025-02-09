@@ -12,6 +12,6 @@ void Event::setPlane(Plane* p){
     this->plane = p;
 }
 
-Plane Event::getPlane(){
-    return *plane;
+Plane* Event::getPlane(){
+    return plane;
 }
