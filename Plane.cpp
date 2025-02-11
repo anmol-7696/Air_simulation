@@ -58,3 +58,12 @@ int Plane::getTurbulence()
 {
     return turbulence;
 }
+void Plane::setRunway(Runway* r){
+    assignedRunway = r;
+}
+Runway* Plane::getRunway(){
+    return assignedRunway;
+}
+void Plane::removeRunway(){
+    assignedRunway = new Runway();
+}

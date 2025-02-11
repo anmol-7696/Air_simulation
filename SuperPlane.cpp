@@ -5,5 +5,5 @@ SuperPlane::SuperPlane(string name, string flight, int atc, string type){
     this->setFlight(flight);
     this->setAtc(atc);
     this->setType(type);
-    this->setTurbulence(0);
+    this->setTurbulence(3);
 }

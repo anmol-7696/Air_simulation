@@ -22,3 +22,8 @@ void Node::print()
 {
     
 }
+
+Node::~Node()
+{
+
+}

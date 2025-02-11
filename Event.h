@@ -13,4 +13,6 @@ class Event
          void setTime(int);
          void setPlane(Plane*);
          Plane* getPlane();
+         virtual void land();
+         virtual void takeOff();
 };

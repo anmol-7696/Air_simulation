@@ -1,17 +1,22 @@
 #include "Runway.h"
 
 Runway::Runway(){
-    onRunway = Plane();
+    onRunway = new Plane();
+    name++;
 }
 
 bool Runway::isAvailable(){
-    return onRunway.getName() == "";
+    return onRunway->getName() == "";
 }
 
-void Runway::assignPlane(Plane p){
+void Runway::assignPlane(Plane* p){
     onRunway = p;
 }
 
 void Runway::removePlane(){
-    onRunway = Plane();
+    onRunway = new Plane();
+}
+
+int Runway::getName(){
+    return name;
 }

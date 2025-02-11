@@ -1,6 +1,7 @@
 #pragma once 
 
 #include "string"
+#include "Runway.h"
 
 using namespace std;
 
@@ -12,10 +13,12 @@ class Plane
            int atcId;
            int turbulence;
            string type;
+           Runway* assignedRunway;
 
     public:
            Plane();
            Plane(string, int, int);
+           void removeRunway();
            
            //setters
            void setName(string);
@@ -23,6 +26,8 @@ class Plane
            void setAtc(int);
            void setType(string);
            void setTurbulence(int);
+           void setRunway(Runway*);
+
 
            //getters
            string getName();
@@ -30,4 +35,5 @@ class Plane
            int getAtc();
            string getType();
            int getTurbulence();
+           Runway* getRunway();
 };

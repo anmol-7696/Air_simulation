@@ -14,3 +14,10 @@ RequestTakeoff::RequestTakeoff(int time, Plane *p){
 int RequestTakeoff::timeReq(){
     return 0;
 }
+
+void RequestTakeoff::takeOff(){
+    cout << "TIME: " + to_string(this->getTime()) + " -> " + this->getPlane()->getName() + " " +
+    this->getPlane()->getFlight() + " " + "(" + to_string(this->getPlane()->getAtc()) + ")" + 
+    this->getPlane()->getType() + " cleared for takeoff on runway " + to_string(this->getPlane()->getRunway()->getName())
+    + ". (time req. for takeoff: " + to_string(1 + this->getPlane()->getTurbulence()) + ")" ; 
+}

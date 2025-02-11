@@ -10,15 +10,19 @@ void LinkedList::orderedInsert(Event* e) {
 
     // Case 1: Empty list OR inserting at the head (smallest time)
     if (head == nullptr || head->getEvent()->getTime() >= e->getTime()) {
-        newNode->setNext(head); // Insert at the beginning
-        head = newNode;
+        if(head->getEvent()->getTime() == e->getTime()){
+            if(head->getEvent()->getPlane()->getAtc() > e->getPlane()->getAtc()){
+                newNode->setNext(head); // Insert at the beginning
+                head = newNode;
+            }
+        }
         return;
     }
 
     // Case 2: Insert in the middle or at the end
     Node* curr = head;
     while (curr->getNext() != nullptr && curr->getNext()->getEvent()->getTime() < e->getTime()) {
-        curr = curr->getNext(); // Move forward
+            curr = curr->getNext(); // Move forward
     }
 
     // Insert new node after `curr`
@@ -28,4 +32,18 @@ void LinkedList::orderedInsert(Event* e) {
 
 bool LinkedList::isEmpty(){
     return head == nullptr;
+}
+
+Node* LinkedList::getHead(){
+    return head;
+}
+
+void LinkedList::deleteHead() {
+    if (head == nullptr) {  
+        return; 
+    }
+
+    Node* prev = head;  // Store the current head
+    head = head->getNext(); // Move head to the next node
+    delete prev;  // Free the memory of the old head
 }

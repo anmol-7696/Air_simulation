@@ -4,10 +4,12 @@
 class Runway
 {   
     private:
-        Plane onRunway;
+        int name;
+        Plane* onRunway;
     public:
         Runway();
         bool isAvailable();
-        void assignPlane(Plane);
+        void assignPlane(Plane*);
         void removePlane();
+        int getName();
 };

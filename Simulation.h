@@ -18,6 +18,7 @@ class Simulation
         void completeEvent();
         void readLine(string);
         Runway* getAvailableRunway(vector<Runway>&);
+        void waitingToPriority(vector<Runway>&);
 
         //getters
         LinkedList* getPriorityQ();
