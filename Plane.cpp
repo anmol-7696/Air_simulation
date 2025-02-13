@@ -5,6 +5,10 @@ using namespace std;
 
 Plane::Plane() {}
 
+Plane::Plane(const Plane& source) : name(source.name) , flightNum(source.flightNum) , atcId(source.atcId){}
+
+Plane::~Plane(){}
+
 Plane::Plane(string name, int flight, int atc)
 {
     this->name = name;
@@ -37,31 +41,31 @@ void Plane::setTurbulence(int turbulence)
     this->turbulence = turbulence;
 }
 
-string Plane::getName()
+string Plane::getName() const
 {
     return name;
 }
 
-string Plane::getFlight()
+string Plane::getFlight() const
 {
     return flightNum;
 }
-int Plane::getAtc()
+int Plane::getAtc() const
 {
     return atcId;
 }
-string Plane::getType()
+string Plane::getType() const
 {
     return type;
 }
-int Plane::getTurbulence()
+int Plane::getTurbulence() const
 {
     return turbulence;
 }
 void Plane::setRunway(Runway* r){
     assignedRunway = r;
 }
-Runway* Plane::getRunway(){
+Runway* Plane::getRunway()const{
     return assignedRunway;
 }
 void Plane::removeRunway(){

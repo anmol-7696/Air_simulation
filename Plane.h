@@ -19,6 +19,11 @@ class Plane
            Plane();
            Plane(string, int, int);
            void removeRunway();
+
+           // copy constructor
+           Plane(const Plane&);
+           //destructor 
+           ~Plane();
            
            //setters
            void setName(string);
@@ -30,10 +35,10 @@ class Plane
 
 
            //getters
-           string getName();
-           string getFlight();
-           int getAtc();
-           string getType();
-           int getTurbulence();
-           Runway* getRunway();
+           string getName() const;
+           string getFlight() const;
+           int getAtc() const;
+           string getType() const;
+           int getTurbulence() const;
+           Runway* getRunway() const;
 };
