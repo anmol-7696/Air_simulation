@@ -1,5 +1,6 @@
 #pragma once 
-#include "Plane.h"
+
+class Plane;
 
 class Runway
 {   

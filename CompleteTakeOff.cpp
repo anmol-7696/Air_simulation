@@ -10,3 +10,15 @@ CompleteTakeOff::CompleteTakeOff(int time, Plane* p, string num, int atc, string
     this->type = type;
     this->r = runway;
 }
+
+int CompleteTakeOff::timeReq() {
+    return time;
+}
+
+void CompleteTakeOff::land() {
+    // ✅ Implement landing logic (even if empty)
+}
+
+void CompleteTakeOff::takeOff() {
+    // ✅ Implement takeoff logic (even if empty)
+}

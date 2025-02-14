@@ -1,8 +1,9 @@
 #include "Runway.h"
+#include "Plane.h"
+
 
 Runway::Runway(){
     onRunway = new Plane();
-    name++;
 }
 
 bool Runway::isAvailable(){

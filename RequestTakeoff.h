@@ -9,4 +9,5 @@ class RequestTakeoff : public Event
         RequestTakeoff(int,Plane*);
         int timeReq()override;
         void takeOff() override;
+         ~RequestTakeoff() override;
 };

@@ -15,3 +15,16 @@ void Event::setPlane(Plane* p){
 Plane* Event::getPlane(){
     return plane;
 }
+
+void Event::land(){
+
+}
+
+void Event::takeOff(){
+    
+}
+
+Event::~Event(){
+    
+}
+

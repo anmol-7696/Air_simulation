@@ -21,3 +21,7 @@ void RequestTakeoff::takeOff(){
     this->getPlane()->getType() + " cleared for takeoff on runway " + to_string(this->getPlane()->getRunway()->getName())
     + ". (time req. for takeoff: " + to_string(1 + this->getPlane()->getTurbulence()) + ")" ; 
 }
+
+RequestTakeoff::~RequestTakeoff(){
+    
+}

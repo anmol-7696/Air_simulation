@@ -15,4 +15,5 @@ class Event
          Plane* getPlane();
          virtual void land();
          virtual void takeOff();
+         virtual ~Event();
 };

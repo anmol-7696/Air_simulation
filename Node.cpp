@@ -25,5 +25,5 @@ void Node::print()
 
 Node::~Node()
 {
-
+  delete event;
 }

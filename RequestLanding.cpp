@@ -21,3 +21,7 @@ void RequestLanding::land(){
     this->getPlane()->getType() + " cleared for landing on runway " + to_string(this->getPlane()->getRunway()->getName())
     + ". (time req. for landing: " + to_string(3 + this->getPlane()->getTurbulence()) + ")"; 
 }
+
+RequestLanding::~RequestLanding(){
+     delete this->getPlane(); 
+}

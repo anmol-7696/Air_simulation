@@ -12,6 +12,10 @@
 #include "CompleteLanding.h"
 #include <vector>
 
+#include <iostream>
+
+using namespace std;
+
 Simulation::Simulation()
 {
     this->priorityQueue = new LinkedList;
@@ -58,17 +62,17 @@ Event *Simulation::createEvent(int time, string name, string flightNum, string t
 void Simulation::scheduleEvent(Event *e, vector<Runway> &runways)
 {
     Runway *available = getAvailableRunway(runways);
+    cout << available->getName() << endl;
     if (available)
-    {
+    {   
         available->assignPlane(e->getPlane());
         e->getPlane()->setRunway(available);
-        this->getPriorityQ()->orderedInsert(e);
-
-        waitingToPriority(runways);
+        this->getPriorityQ()->orderedInsert(e); 
+         waitingToPriority(runways);
     }
-    else
-    {
-        this->getWaitingLine()->orderedInsert(e);
+    else if(!available)
+    {   
+        this->getWaitingLine()->orderedInsert(e); // segmentation fault here (I am not creating event properly since no runway is avaialbe)
     }
 }
 
@@ -79,21 +83,36 @@ void Simulation::processEvent()
     Event *event = nullptr;
 
     if (dynamic_cast<RequestTakeoff *>(e))
-    {
-        e->takeOff();
-        event = new CompleteTakeOff(e->getTime() + 1 + e->getPlane()->getTurbulence(),
-                                    e->getPlane(),
-                                    e->getPlane()->getFlight(),
-                                    e->getPlane()->getAtc(),
-                                    e->getPlane()->getType(),
-                                    e->getPlane()->getRunway());
+    {   
+        int count = 0 ;
+        while(count < 100){
+            e->takeOff();
+            cout <<"reached process event 1" << endl;
+            event = new CompleteTakeOff(e->getTime() + 1 + e->getPlane()->getTurbulence(),
+                                        e->getPlane(),
+                                        e->getPlane()->getFlight(),
+                                        e->getPlane()->getAtc(),
+                                        e->getPlane()->getType(),
+                                        e->getPlane()->getRunway());
+            cout <<"reached process event 1" << endl;
 
-        this->getPriorityQ()->orderedInsert(event);
-        this->getPriorityQ()->deleteHead();
+            if(event == nullptr){
+                cout <<"event is null" << endl;
+                return;
+            }
+            if(this->getPriorityQ() == nullptr){
+                cout <<"Q is null" << endl;
+                return;
+            }
+            this->getPriorityQ()->orderedInsert(event); // segmentation fault 
+            cout <<"reached process event 1" << endl;
+            count++;
+        }
     }
 
     else if (dynamic_cast<RequestLanding *>(e))
-    {
+    {   
+        cout <<"reached process event 2" << endl;
         e->land();
         event = new CompleteLanding(e->getTime() + 3 + e->getPlane()->getTurbulence(),
                                     e->getPlane(),
@@ -101,9 +120,10 @@ void Simulation::processEvent()
                                     e->getPlane()->getAtc(),
                                     e->getPlane()->getType(),
                                     e->getPlane()->getRunway());
+
         this->getPriorityQ()->orderedInsert(event);
-        this->getPriorityQ()->deleteHead();
     }
+    this->getPriorityQ()->deleteHead();
 }
 
 Runway *Simulation::getAvailableRunway(vector<Runway> &runways)
@@ -120,28 +140,27 @@ Runway *Simulation::getAvailableRunway(vector<Runway> &runways)
 
 void Simulation::waitingToPriority(vector<Runway> &runways)
 {
-    // Check if there's an available runway
-    Runway *available = getAvailableRunway(runways);
-    if (available)
+    while (true)
     {
-        // If there is an available runway and waiting events
-        if (!this->getWaitingLine()->isEmpty())
+        Runway *available = getAvailableRunway(runways);
+        if (!available)
         {
-            // Get the first event from the waiting line
-            Event *waitingEvent = this->getWaitingLine()->getHead()->getEvent();
-            this->getWaitingLine()->deleteHead();  // Remove it from waiting line
-
-            // Assign runway to the plane in the event
-            waitingEvent->getPlane()->setRunway(available);
-
-            // Insert it into the priority queue
-            this->getPriorityQ()->orderedInsert(waitingEvent);
-
-            // Recurse to move more events if possible
-            waitingToPriority(runways);
+            cout << "Runway not available" << endl;
+            return;
         }
+
+        if (this->getWaitingLine()->isEmpty()) {
+            return; // ✅ Stop when waiting line is empty
+        }
+
+        Event *waitingEvent = this->getWaitingLine()->getHead()->getEvent();
+        this->getWaitingLine()->deleteHead(); 
+
+        waitingEvent->getPlane()->setRunway(available);
+        this->getPriorityQ()->orderedInsert(waitingEvent);
     }
 }
+
 
 
 LinkedList* Simulation::getPriorityQ()

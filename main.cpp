@@ -11,13 +11,13 @@ using namespace std;
 #include "Plane.h"
 #include "SmallPlane.h"
 
-int runwaysInUse = 0; // Counter to keep track of runways under use 
+int runwaysInUse = 0; // Counter to keep track of runways under use
 int atcId = 1;
 
-void processFile(string fileName, vector<Runway>& runways, Simulation* sim);
-Event* createEvent(int t, string callsign, string num, string size, string request);
+void processFile(string fileName, vector<Runway> &runways, Simulation *sim);
+Event *createEvent(int t, string callsign, string num, string size, string request);
 
-int main(int argc, char* argv[])
+int main(int argc, char *argv[])
 {
     if (argc != 3)
     {
@@ -31,12 +31,13 @@ int main(int argc, char* argv[])
 
     vector<Runway> runways(numRunways);
 
-    for (int i = 0; i < numRunways; i++) {
+    for (int i = 0; i < numRunways; i++)
+    {
         runways[i] = Runway();
     }
 
     // Create Simulation object
-    Simulation* S = new Simulation();
+    Simulation *S = new Simulation();
 
     // Read and process events from file
     processFile(filename, runways, S);
@@ -45,12 +46,13 @@ int main(int argc, char* argv[])
     return 0;
 }
 
-void processFile(string fileName, vector<Runway>& runways, Simulation* sim)
+void processFile(string fileName, vector<Runway> &runways, Simulation *sim)
 {
     ifstream inputFile(fileName);
     string line;
 
-    if (!inputFile) {
+    if (!inputFile)
+    {
         cerr << "Error opening file: " << fileName << endl;
         return;
     }
@@ -67,24 +69,30 @@ void processFile(string fileName, vector<Runway>& runways, Simulation* sim)
         sst >> callSign >> flightNum >> size >> requestType;
 
         // Create event
-        Event* e = sim->createEvent(time, callSign, flightNum, size, requestType,atcId);
-		atcId++;
+        Event *e = sim->createEvent(time, callSign, flightNum, size, requestType, atcId);
+        atcId++;
 
-        if (e) {
+        if (e != nullptr)
+        {
             // Schedule the event in Simulation
-            sim->scheduleEvent(e,runways);
+            sim->scheduleEvent(e, runways);
         }
 
+        int count = 0;
         // Process events before reading the next line
-        //while (sim->hasPendingEvents()) {
-        //    sim->processNextEvent();
-        //}
+        if (sim->getPriorityQ() && !(sim->getPriorityQ()->isEmpty()))
+        {   
+            cout << "reached" << endl;
+            while(count < 100){ 
+                while (!(sim->getPriorityQ()->isEmpty()))
+                {   
+                    cout << "reached" << endl;
+                    count++;
+                    sim->processEvent();
+                }
+            }
+        }
     }
 
     inputFile.close();
 }
-
-
-
-
-

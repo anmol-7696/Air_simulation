@@ -16,5 +16,5 @@ class Node
         void setNext(Node*);
         Event* getEvent();
         void print();
-        ~Node();
+        virtual ~Node();
 };
