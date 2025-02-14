@@ -19,4 +19,6 @@ class CompleteTakeOff : public Event
 
           void land() override;    
           void takeOff() override; 
+
+          void finalTakeoff() override;
 };

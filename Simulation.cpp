@@ -82,30 +82,28 @@ void Simulation::processEvent()
     Event *e = this->getPriorityQ()->getHead()->getEvent();
     Event *event = nullptr;
 
+    if(dynamic_cast<CompleteLanding *> (e)){
+        e->finalLanding();
+    }
+    else if(dynamic_cast<CompleteTakeOff *> (e)){
+        e->finalTakeoff();
+    }
+
     if (dynamic_cast<RequestTakeoff *>(e))
     {   
         int count = 0 ;
         while(count < 100){
             e->takeOff();
-            cout <<"reached process event 1" << endl;
+            //cout <<"reached process event 1" << endl;
             event = new CompleteTakeOff(e->getTime() + 1 + e->getPlane()->getTurbulence(),
                                         e->getPlane(),
                                         e->getPlane()->getFlight(),
                                         e->getPlane()->getAtc(),
                                         e->getPlane()->getType(),
                                         e->getPlane()->getRunway());
-            cout <<"reached process event 1" << endl;
-
-            if(event == nullptr){
-                cout <<"event is null" << endl;
-                return;
-            }
-            if(this->getPriorityQ() == nullptr){
-                cout <<"Q is null" << endl;
-                return;
-            }
+        
             this->getPriorityQ()->orderedInsert(event); // segmentation fault 
-            cout <<"reached process event 1" << endl;
+
             count++;
         }
     }
