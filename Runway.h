@@ -13,4 +13,5 @@ class Runway
         void assignPlane(Plane*);
         void removePlane();
         int getName();
+        void setName(int);
 };

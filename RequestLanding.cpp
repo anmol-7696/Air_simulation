@@ -8,7 +8,7 @@ RequestLanding::RequestLanding(int time, Plane *p){
       this->setTime(time);
       cout << "TIME: " + to_string(time) + " -> " + p->getName() + " " + 
       p->getFlight() + " " + "(" + to_string(p->getAtc()) + ") " +
-      p->getType() + " inbound for landing" << endl;
+      p->getType() + " inbound for landing\n" << endl;
 }
 
 int RequestLanding::timeReq(){
@@ -17,9 +17,9 @@ int RequestLanding::timeReq(){
 
 void RequestLanding::land(){
      cout << "TIME: " + to_string(this->getTime()) + " -> " + this->getPlane()->getName() + " " +
-    this->getPlane()->getFlight() + " " + "(" + to_string(this->getPlane()->getAtc()) + ")" + 
+    this->getPlane()->getFlight() + " " + "(" + to_string(this->getPlane()->getAtc()) + ") " + 
     this->getPlane()->getType() + " cleared for landing on runway " + to_string(this->getPlane()->getRunway()->getName())
-    + ". (time req. for landing: " + to_string(3 + this->getPlane()->getTurbulence()) + ")"; 
+    + ". (time req. for landing: " + to_string(3 + this->getPlane()->getTurbulence()) + ")\n"; 
 }
 
 RequestLanding::~RequestLanding(){

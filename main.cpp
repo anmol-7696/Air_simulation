@@ -3,6 +3,7 @@
 #include <fstream>
 #include <string>
 #include <vector>
+#include <iostream>
 
 using namespace std;
 
@@ -34,6 +35,7 @@ int main(int argc, char *argv[])
     for (int i = 0; i < numRunways; i++)
     {
         runways[i] = Runway();
+        runways[i].setName(i+1);
     }
 
     // Create Simulation object
@@ -57,6 +59,8 @@ void processFile(string fileName, vector<Runway> &runways, Simulation *sim)
         return;
     }
 
+    cout << "\n" << endl;
+    cout <<"Simulatin begins..." << endl;
     while (getline(inputFile, line)) // Read each line
     {
         stringstream sst(line);
@@ -73,24 +77,18 @@ void processFile(string fileName, vector<Runway> &runways, Simulation *sim)
         atcId++;
 
         if (e != nullptr)
-        {
+        {   
+            
             // Schedule the event in Simulation
             sim->scheduleEvent(e, runways);
         }
 
-        int count = 0;
-        // Process events before reading the next line
         if (sim->getPriorityQ() && !(sim->getPriorityQ()->isEmpty()))
-        {   
-            cout << "reached" << endl;
-            while(count < 100){ 
-                while (!(sim->getPriorityQ()->isEmpty()))
-                {   
-                    cout << "reached" << endl;
-                    count++;
+        {    
+               // while (!(sim->getPriorityQ()->isEmpty()))
+                //{   
                     sim->processEvent();
-                }
-            }
+                //}
         }
     }
 

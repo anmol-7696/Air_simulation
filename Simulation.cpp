@@ -62,12 +62,13 @@ Event *Simulation::createEvent(int time, string name, string flightNum, string t
 void Simulation::scheduleEvent(Event *e, vector<Runway> &runways)
 {
     Runway *available = getAvailableRunway(runways);
-    cout << available->getName() << endl;
+    //cout << available->getName() << endl;
+    
     if (available)
     {   
-        available->assignPlane(e->getPlane());
-        e->getPlane()->setRunway(available);
-        this->getPriorityQ()->orderedInsert(e); 
+         available->assignPlane(e->getPlane());
+         e->getPlane()->setRunway(available);
+         this->getPriorityQ()->orderedInsert(e); 
          waitingToPriority(runways);
     }
     else if(!available)
@@ -91,21 +92,16 @@ void Simulation::processEvent()
 
     if (dynamic_cast<RequestTakeoff *>(e))
     {   
-        int count = 0 ;
-        while(count < 100){
             e->takeOff();
-            //cout <<"reached process event 1" << endl;
+           // cout << "\n" << endl;
             event = new CompleteTakeOff(e->getTime() + 1 + e->getPlane()->getTurbulence(),
                                         e->getPlane(),
                                         e->getPlane()->getFlight(),
                                         e->getPlane()->getAtc(),
                                         e->getPlane()->getType(),
                                         e->getPlane()->getRunway());
-        
             this->getPriorityQ()->orderedInsert(event); // segmentation fault 
-
-            count++;
-        }
+        
     }
 
     else if (dynamic_cast<RequestLanding *>(e))
@@ -121,6 +117,7 @@ void Simulation::processEvent()
 
         this->getPriorityQ()->orderedInsert(event);
     }
+
     this->getPriorityQ()->deleteHead();
 }
 
@@ -143,12 +140,11 @@ void Simulation::waitingToPriority(vector<Runway> &runways)
         Runway *available = getAvailableRunway(runways);
         if (!available)
         {
-            cout << "Runway not available" << endl;
             return;
         }
 
         if (this->getWaitingLine()->isEmpty()) {
-            return; // ✅ Stop when waiting line is empty
+            return; // return when waiting line is empty
         }
 
         Event *waitingEvent = this->getWaitingLine()->getHead()->getEvent();
@@ -158,8 +154,6 @@ void Simulation::waitingToPriority(vector<Runway> &runways)
         this->getPriorityQ()->orderedInsert(waitingEvent);
     }
 }
-
-
 
 LinkedList* Simulation::getPriorityQ()
 {

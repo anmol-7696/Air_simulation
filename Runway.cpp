@@ -21,3 +21,7 @@ void Runway::removePlane(){
 int Runway::getName(){
     return name;
 }
+
+void Runway::setName(int name){
+    this->name = name;
+}

@@ -6,7 +6,7 @@
 using namespace std;
 
 LinkedList::LinkedList(){
-    Node* head = nullptr;
+    head = nullptr;
 }
 
 void LinkedList::orderedInsert(Event* e) {
