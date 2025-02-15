@@ -6,8 +6,9 @@
 class RequestTakeoff : public Event
 {   
     public:
-        RequestTakeoff(int,Plane*);
+        RequestTakeoff(int,Plane*, int);
         int timeReq()override;
         void takeOff() override;
-         ~RequestTakeoff() override;
+       // Plane* getPlane() override;
+        virtual ~RequestTakeoff() ;
 };

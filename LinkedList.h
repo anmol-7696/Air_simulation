@@ -9,8 +9,12 @@ class LinkedList
     public:
         LinkedList();
         void orderedInsert(Event*);
-        void removeEvent();
         bool isEmpty();
         Node* getHead();
         void deleteHead();
+        void printQueue();
+        void deleteEvent(int);
+
+        // destructor
+        virtual ~LinkedList();
 };

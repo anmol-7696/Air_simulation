@@ -25,3 +25,7 @@ int Runway::getName(){
 void Runway::setName(int name){
     this->name = name;
 }
+
+Runway::~Runway(){
+    
+}

@@ -18,12 +18,12 @@ void Node::setNext(Node* n)
 {
     this->next = n;
 }
-void Node::print()
-{
-    
+
+void Node::setEvent(Event* e){
+    this->event = e;
 }
 
 Node::~Node()
 {
-  delete event;
+    delete event;
 }

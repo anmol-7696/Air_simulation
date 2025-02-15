@@ -5,55 +5,82 @@
 
 using namespace std;
 
-LinkedList::LinkedList(){
+LinkedList::LinkedList()
+{
     head = nullptr;
 }
 
-void LinkedList::orderedInsert(Event* e) {
-    Node* newNode = new Node(e, nullptr);
+void LinkedList::orderedInsert(Event *e)
+{
+
+    Node *newNode = new Node(e, nullptr);
+    if (newNode == nullptr)
+    {
+        // Handle memory allocation failure
+        return;
+    }
 
     // Case 1: Empty list OR inserting at the head (smallest time)
-    if (head == nullptr || head->getEvent()->getTime() > e->getTime()) {
+    if (head == nullptr || head->getEvent()->getTime() > e->getTime())
+    {
         newNode->setNext(head);
         head = newNode;
+        //cout << "event added at head" << endl;
         return;
     }
 
     // Case 2: Insert in the middle or at the end
-    Node* curr = head;
-    while (curr->getNext() != nullptr && 
-           curr->getNext()->getEvent()->getTime() < e->getTime()) {
-        curr = curr->getNext();  // Move forward
-    }
-
-    // If time is the same, sort by ATC ID (higher ATC ID goes later)
-    while (curr->getNext() != nullptr && 
-           curr->getNext()->getEvent()->getTime() == e->getTime() && 
-           curr->getNext()->getEvent()->getPlane()->getAtc() < e->getPlane()->getAtc()) {
-        curr = curr->getNext();
+    Node *curr = head;
+    while (curr->getNext() != nullptr &&
+           (curr->getNext()->getEvent()->getTime() < e->getTime() ||
+            (curr->getNext()->getEvent()->getTime() == e->getTime() &&
+             curr->getNext()->getEvent()->getPlane()->getAtc() < e->getPlane()->getAtc())))
+    {
+        curr = curr->getNext(); // Move forward
     }
 
     // Insert new node after `curr`
     newNode->setNext(curr->getNext());
     curr->setNext(newNode);
+    //cout <<"event added in middle" <<endl;
 }
 
 
-bool LinkedList::isEmpty(){
+bool LinkedList::isEmpty()
+{   
     return head == nullptr;
+
 }
 
-Node* LinkedList::getHead(){
+Node *LinkedList::getHead()
+{
     return head;
 }
 
-void LinkedList::deleteHead() {
-    if (head == nullptr) {  
-        return; 
+void LinkedList::deleteHead()
+{
+    if (head == nullptr)
+    {
+        return;
     }
 
-    Node* prev = head;  // Store the current head
-    head = head->getNext(); // Move head to the next node
+    Node *prev = head;
+    head = head->getNext();
+
+    delete prev->getEvent();
     delete prev;
+}
+
+void LinkedList::printQueue() {
+    Node* curr = head;
+    while (curr != nullptr) {
+        cout << "Event time: " << curr->getEvent()->getPlane()->getName() << endl;
+        curr = curr->getNext();
+    }
+}
+
+
+LinkedList::~LinkedList(){
+    delete head;
 }
 

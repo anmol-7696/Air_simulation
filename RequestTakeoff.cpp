@@ -3,9 +3,10 @@
 
 using namespace std;
 
-RequestTakeoff::RequestTakeoff(int time, Plane *p){
+RequestTakeoff::RequestTakeoff(int time, Plane *p , int count) : Event(p){
       this->setPlane(p);
       this->setTime(time);
+      this->setCount(count);
       cout << "TIME: " + to_string(time) + " -> " + p->getName() + " " + 
       p->getFlight() + " " + "(" + to_string(p->getAtc()) + ") " +
       p->getType() + " ready for takeoff\n" << endl;
@@ -21,6 +22,7 @@ void RequestTakeoff::takeOff(){
     this->getPlane()->getType() + " cleared for takeoff on runway " + to_string(this->getPlane()->getRunway()->getName())
     + ". (time req. for takeoff: " + to_string(1 + this->getPlane()->getTurbulence()) + ")\n" <<endl ; 
 }
+
 
 RequestTakeoff::~RequestTakeoff(){
     

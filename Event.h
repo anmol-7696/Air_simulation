@@ -7,11 +7,19 @@ class Event
     private:
          Plane* plane;
          int time;
+         int eventCount;
     public:
          virtual int timeReq() = 0;
+         Event(Plane*);
+         Event();
+
          int getTime();
          void setTime(int);
          void setPlane(Plane*);
+         void setCount(int);
+
+
+         int getCount();
          Plane* getPlane();
          virtual void land();
          virtual void takeOff();

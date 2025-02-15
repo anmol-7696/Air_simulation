@@ -14,7 +14,7 @@ class Node
         //Instance methods
         Node* getNext();
         void setNext(Node*);
+        void setEvent(Event*);
         Event* getEvent();
-        void print();
         virtual ~Node();
 };

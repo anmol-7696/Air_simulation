@@ -14,11 +14,13 @@ class CompleteLanding : public Event
 
     public:
           CompleteLanding();
-          CompleteLanding(int, Plane*, string, int, string, Runway*);
+          CompleteLanding(int, Plane*, string, int, string, Runway*,int);
           int timeReq() override;
 
           void land() override;    
           void takeOff() override; 
 
           void finalLanding()override;
+
+          ~CompleteLanding() override;
 };

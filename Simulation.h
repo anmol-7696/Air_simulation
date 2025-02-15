@@ -9,6 +9,7 @@ class Simulation
     private:
         LinkedList* priorityQueue ;
         LinkedList* waitingLine;
+        int counter ;
 
     public:
         Simulation();
@@ -20,8 +21,14 @@ class Simulation
         Runway* getAvailableRunway(vector<Runway>&);
         void waitingToPriority(vector<Runway>&);
 
+        // set counter 
+
         //getters
         LinkedList* getPriorityQ();
         LinkedList* getWaitingLine();
+
+
+        //destructor
+        virtual ~Simulation();
 
 };

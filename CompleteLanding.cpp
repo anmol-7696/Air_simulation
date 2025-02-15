@@ -2,7 +2,7 @@
 #include <iostream>
 
 CompleteLanding::CompleteLanding(int time, Plane* p, string num, int atc, string type
-                                  , Runway* runway)
+                                  , Runway* runway,int count)
 {   
     this->time = time;
     this->p = p;
@@ -10,12 +10,13 @@ CompleteLanding::CompleteLanding(int time, Plane* p, string num, int atc, string
     this->atc = atc;
     this->type = type;
     this->r = runway;
+    this->setCount(count);
 }
 
 void CompleteLanding::finalLanding(){
     std::cout << "TIME: " + to_string(time) + " -> " + p->getName() + " " + 
       p->getFlight() + " " + "(" + to_string(p->getAtc()) + ") " +
-      p->getType() + " has cleared the runway" + to_string(p->getRunway()->getName()) << endl;
+      p->getType() + " has cleared the runway" + to_string(p->getRunway()->getName()) + "\n" << endl;
 }
 
 int CompleteLanding::timeReq() {
@@ -23,9 +24,13 @@ int CompleteLanding::timeReq() {
 }
 
 void CompleteLanding::land() {
-    // ✅ Implement landing logic (even if empty)
 }
 
 void CompleteLanding::takeOff() {
-    // ✅ Implement takeoff logic (even if empty)
+    
+}
+
+
+CompleteLanding::~CompleteLanding(){
+
 }

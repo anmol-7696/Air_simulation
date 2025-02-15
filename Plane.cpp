@@ -3,17 +3,22 @@
 
 using namespace std;
 
-Plane::Plane() {}
+Plane::Plane()
+      : name("") , flightNum("") , atcId(0) , type("") ,turbulence(0) , assignedRunway(nullptr) {}
 
 Plane::Plane(const Plane& source) : name(source.name) , flightNum(source.flightNum) , atcId(source.atcId){}
 
 Plane::~Plane(){}
 
-Plane::Plane(string name, int flight, int atc)
+Plane::Plane(string name, int flight, int atc,string type, int turbulence , Runway* runway)
 {
     this->name = name;
     this->flightNum = flight;
     this->atcId = atc;
+    this->type = type;
+    this->turbulence = turbulence;
+    this->assignedRunway = runway;
+
 }
 
 void Plane::setName(string name)
@@ -69,5 +74,5 @@ Runway* Plane::getRunway()const{
     return assignedRunway;
 }
 void Plane::removeRunway(){
-    assignedRunway = new Runway();
+    assignedRunway = nullptr;
 }

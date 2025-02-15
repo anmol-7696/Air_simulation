@@ -14,4 +14,7 @@ class Runway
         void removePlane();
         int getName();
         void setName(int);
+
+        // destructor
+        ~Runway();
 };

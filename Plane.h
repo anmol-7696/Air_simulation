@@ -17,7 +17,7 @@ class Plane
 
     public:
            Plane();
-           Plane(string, int, int);
+           Plane(string, int, int, string, int, Runway*);
            void removeRunway();
 
            // copy constructor

@@ -18,8 +18,9 @@ using namespace std;
 
 Simulation::Simulation()
 {
-    this->priorityQueue = new LinkedList;
-    this->waitingLine = new LinkedList;
+    this->priorityQueue = new LinkedList();
+    this->waitingLine = new LinkedList();
+    counter = 1;
 }
 
 Event *Simulation::createEvent(int time, string name, string flightNum, string type, string request,
@@ -51,74 +52,95 @@ Event *Simulation::createEvent(int time, string name, string flightNum, string t
 
     if (request == "takeoff")
     {
-        return new RequestTakeoff(time, p);
+        return new RequestTakeoff(time, p , counter);
+        counter++;
     }
-    else
+    if (request == "landing")
     {
-        return new RequestLanding(time, p);
+        return new RequestLanding(time, p , counter);
+        counter++;
     }
+
+    return nullptr;
 }
 
 void Simulation::scheduleEvent(Event *e, vector<Runway> &runways)
 {
-    Runway *available = getAvailableRunway(runways);
-    //cout << available->getName() << endl;
-    
+
+    Runway* available = getAvailableRunway(runways);
+
     if (available)
-    {   
-         available->assignPlane(e->getPlane());
-         e->getPlane()->setRunway(available);
-         this->getPriorityQ()->orderedInsert(e); 
-         waitingToPriority(runways);
+    {
+        available->assignPlane(e->getPlane());
+        e->getPlane()->setRunway(available);
+        this->getPriorityQ()->orderedInsert(e);
+        waitingToPriority(runways);
     }
-    else if(!available)
-    {   
-        this->getWaitingLine()->orderedInsert(e); // segmentation fault here (I am not creating event properly since no runway is avaialbe)
+    else
+    {
+        this->getWaitingLine()->orderedInsert(e); // Add event to waiting line
     }
+
+
 }
 
 void Simulation::processEvent()
 {
 
-    Event *e = this->getPriorityQ()->getHead()->getEvent();
-    Event *event = nullptr;
+  // while (!(this->getPriorityQ()->isEmpty()))
+    //  {    
 
-    if(dynamic_cast<CompleteLanding *> (e)){
-        e->finalLanding();
-    }
-    else if(dynamic_cast<CompleteTakeOff *> (e)){
-        e->finalTakeoff();
-    }
+        Event *e = this->getPriorityQ()->getHead()->getEvent();
+        // this->getPriorityQ()->deleteHead();
 
-    if (dynamic_cast<RequestTakeoff *>(e))
-    {   
+        if (dynamic_cast<CompleteTakeOff *>(e))
+        {   
+           
+            e->finalTakeoff();
+            
+            
+        }
+
+        else if (dynamic_cast<CompleteLanding *>(e))
+        {   
+           
+            e->finalLanding();
+            
+        }
+        else if (dynamic_cast<RequestTakeoff *>(e))
+        {   
+            
             e->takeOff();
-           // cout << "\n" << endl;
-            event = new CompleteTakeOff(e->getTime() + 1 + e->getPlane()->getTurbulence(),
-                                        e->getPlane(),
-                                        e->getPlane()->getFlight(),
-                                        e->getPlane()->getAtc(),
-                                        e->getPlane()->getType(),
-                                        e->getPlane()->getRunway());
-            this->getPriorityQ()->orderedInsert(event); // segmentation fault 
+            int completionTime = e->getTime() + 1 + e->getPlane()->getTurbulence();
+            
+            Event *event = new CompleteTakeOff(completionTime, e->getPlane(), e->getPlane()->getFlight(),
+                                               e->getPlane()->getAtc(),
+                                               e->getPlane()->getType(),
+                                               e->getPlane()->getRunway(),counter);
+            counter++;
+           
+            this->getPriorityQ()->orderedInsert(event);
+            
+        }
+        else if (dynamic_cast<RequestLanding *>(e))
+        {   
+            e->land();
+            int completionTime = e->getTime() + 3 + e->getPlane()->getTurbulence();
+            Event *event = new CompleteLanding(completionTime, e->getPlane(), e->getPlane()->getFlight(),
+                                               e->getPlane()->getAtc(),
+                                               e->getPlane()->getType(),
+                                               e->getPlane()->getRunway(),counter);
+                counter++;
+            this->getPriorityQ()->orderedInsert(event);
+        }
         
-    }
-
-    else if (dynamic_cast<RequestLanding *>(e))
-    {   
-        cout <<"reached process event 2" << endl;
-        e->land();
-        event = new CompleteLanding(e->getTime() + 3 + e->getPlane()->getTurbulence(),
-                                    e->getPlane(),
-                                    e->getPlane()->getFlight(),
-                                    e->getPlane()->getAtc(),
-                                    e->getPlane()->getType(),
-                                    e->getPlane()->getRunway());
-
-        this->getPriorityQ()->orderedInsert(event);
-    }
-
-    this->getPriorityQ()->deleteHead();
+        // this->getPriorityQ()->deleteHead();
+        if (e != nullptr) {
+            delete e;  // Free the memory
+            e = nullptr;  // Optional: avoid accidental reuse
+        }
+       //  delete e;      
+  //  }
 }
 
 Runway *Simulation::getAvailableRunway(vector<Runway> &runways)
@@ -127,40 +149,54 @@ Runway *Simulation::getAvailableRunway(vector<Runway> &runways)
     {
         if (runways[i].isAvailable())
         {
-            return &runways[i]; // Return the address of the available runway
+            return &runways[i];
         }
     }
-    return nullptr; // No available runway
+    return nullptr;
 }
 
 void Simulation::waitingToPriority(vector<Runway> &runways)
 {
-    while (true)
+    Runway *available = getAvailableRunway(runways);
+    if (!available)
     {
-        Runway *available = getAvailableRunway(runways);
-        if (!available)
-        {
-            return;
-        }
-
-        if (this->getWaitingLine()->isEmpty()) {
-            return; // return when waiting line is empty
-        }
-
-        Event *waitingEvent = this->getWaitingLine()->getHead()->getEvent();
-        this->getWaitingLine()->deleteHead(); 
-
-        waitingEvent->getPlane()->setRunway(available);
-        this->getPriorityQ()->orderedInsert(waitingEvent);
+        return;
     }
+
+    if (this->getWaitingLine()->isEmpty())
+    {
+        return;
+    }
+
+    Event *waitingEvent = this->getWaitingLine()->getHead()->getEvent();
+    this->getWaitingLine()->deleteHead();
+
+    waitingEvent->getPlane()->setRunway(available);
+    this->getPriorityQ()->orderedInsert(waitingEvent);
 }
 
-LinkedList* Simulation::getPriorityQ()
+LinkedList *Simulation::getPriorityQ()
 {
     return this->priorityQueue;
 }
 
-LinkedList* Simulation::getWaitingLine()
+LinkedList *Simulation::getWaitingLine()
 {
     return this->waitingLine;
+}
+
+Simulation::~Simulation() {
+    while (!priorityQueue->isEmpty()) {
+        Event* e = priorityQueue->getHead()->getEvent();
+        priorityQueue->deleteHead();
+        delete e;  
+    }
+    delete priorityQueue;  
+
+    while (!waitingLine->isEmpty()) {
+        Event* e = waitingLine->getHead()->getEvent();
+        waitingLine->deleteHead();
+        delete e;
+    }
+    delete waitingLine;
 }

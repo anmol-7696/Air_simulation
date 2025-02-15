@@ -14,11 +14,15 @@ class CompleteTakeOff : public Event
 
     public:
           CompleteTakeOff();
-          CompleteTakeOff(int, Plane*, string, int, string, Runway*);
+          CompleteTakeOff(int, Plane*, string, int, string, Runway*, int);
           int timeReq() override;
 
           void land() override;    
           void takeOff() override; 
 
           void finalTakeoff() override;
+
+          //void print();
+
+          ~CompleteTakeOff();
 };
