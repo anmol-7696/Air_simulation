@@ -10,6 +10,22 @@ LinkedList::LinkedList()
     head = nullptr;
 }
 
+void LinkedList::add(Event* e)
+{   
+    Node* newNode = new Node(e,nullptr);
+
+    if(head == nullptr){
+        head = newNode;
+    }
+   
+    Node* curr = head;
+    while(curr->getNext() != nullptr){
+        curr = curr->getNext();
+    }
+    curr->setNext(newNode);
+
+}
+
 void LinkedList::orderedInsert(Event *e)
 {
 
@@ -67,8 +83,12 @@ void LinkedList::deleteHead()
     Node *prev = head;
     head = head->getNext();
 
-    delete prev->getEvent();
+   // delete prev->getEvent();
     delete prev;
+}
+
+void LinkedList::setHead(Node* head){
+    this->head = head;
 }
 
 void LinkedList::printQueue() {

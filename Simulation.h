@@ -15,7 +15,7 @@ class Simulation
         Simulation();
         Event* createEvent(int, string, string, string, string,int);
         void scheduleEvent(Event*,vector<Runway>&);
-        void processEvent();
+        void processEvent(vector<Runway>&);
         void completeEvent();
         void readLine(string);
         Runway* getAvailableRunway(vector<Runway>&);

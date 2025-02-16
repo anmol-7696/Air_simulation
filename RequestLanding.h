@@ -9,5 +9,5 @@ class RequestLanding : public Event
         RequestLanding(int,Plane*, int);
         int timeReq()override;
         void land() override;
-        virtual ~RequestLanding() ;
+         ~RequestLanding() override;
 };

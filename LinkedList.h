@@ -14,7 +14,9 @@ class LinkedList
         void deleteHead();
         void printQueue();
         void deleteEvent(int);
+        void add(Event*);
 
+        void setHead(Node*);
         // destructor
         virtual ~LinkedList();
 };

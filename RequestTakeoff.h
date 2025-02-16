@@ -10,5 +10,5 @@ class RequestTakeoff : public Event
         int timeReq()override;
         void takeOff() override;
        // Plane* getPlane() override;
-        virtual ~RequestTakeoff() ;
+         ~RequestTakeoff() override;
 };

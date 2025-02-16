@@ -24,5 +24,5 @@ void RequestLanding::land(){
 }
 
 RequestLanding::~RequestLanding(){
-     //delete this->getPlane(); 
+     
 }

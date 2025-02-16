@@ -84,7 +84,7 @@ void processFile(string fileName, vector<Runway> &runways, Simulation *sim)
 
         if (sim->getPriorityQ() && !(sim->getPriorityQ()->isEmpty()))
         {
-            sim->processEvent();
+            sim->processEvent(runways);
         }
     }
 
