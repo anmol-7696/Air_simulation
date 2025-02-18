@@ -82,8 +82,6 @@ void LinkedList::deleteHead()
 
     Node *prev = head;
     head = head->getNext();
-
-   // delete prev->getEvent();
     delete prev;
 }
 
@@ -101,6 +99,6 @@ void LinkedList::printQueue() {
 
 
 LinkedList::~LinkedList(){
-    delete head;
+   delete head;
 }
 

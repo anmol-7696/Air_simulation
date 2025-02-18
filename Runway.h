@@ -15,6 +15,6 @@ class Runway
         int getName();
         void setName(int);
 
-        // destructor
+       // destructor
         ~Runway();
 };

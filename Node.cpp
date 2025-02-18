@@ -25,5 +25,5 @@ void Node::setEvent(Event* e){
 
 Node::~Node()
 {
-    delete event;
+     delete this->event;
 }

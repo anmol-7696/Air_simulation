@@ -74,12 +74,12 @@ void processFile(string fileName, vector<Runway> &runways, Simulation *sim)
         sst >> callSign >> flightNum >> size >> requestType;
 
         // Create event
-        Event *e = sim->createEvent(time, callSign, flightNum, size, requestType, atcId);
+        Event *ev = sim->createEvent(time, callSign, flightNum, size, requestType, atcId);
         atcId++;
 
-        if (e != nullptr)
+        if (ev != nullptr)
         {
-            sim->scheduleEvent(e, runways);
+            sim->scheduleEvent(ev, runways);
         }
 
         if (sim->getPriorityQ() && !(sim->getPriorityQ()->isEmpty()))

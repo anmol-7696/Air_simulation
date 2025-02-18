@@ -3,11 +3,11 @@
 
 
 Runway::Runway(){
-    onRunway = new Plane();
+    onRunway = nullptr;
 }
 
 bool Runway::isAvailable(){
-    return onRunway->getName() == "";
+    return onRunway == nullptr;
 }
 
 void Runway::assignPlane(Plane* p){
@@ -15,7 +15,7 @@ void Runway::assignPlane(Plane* p){
 }
 
 void Runway::removePlane(){
-    onRunway = new Plane();
+    onRunway = nullptr;
 }
 
 int Runway::getName(){
