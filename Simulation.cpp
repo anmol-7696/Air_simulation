@@ -20,7 +20,6 @@ Simulation::Simulation()
 {
     this->priorityQueue = new LinkedList();
     this->waitingLine = new LinkedList();
-    counter = 1;
 }
 
 Event *Simulation::createEvent(int time, string name, string flightNum, string type, string request,
@@ -52,13 +51,11 @@ Event *Simulation::createEvent(int time, string name, string flightNum, string t
 
     if (request == "takeoff")
     {
-        return new RequestTakeoff(time, p, counter);
-        counter++;
+        return new RequestTakeoff(time, p);
     }
     if (request == "landing")
     {
-        return new RequestLanding(time, p, counter);
-        counter++;
+        return new RequestLanding(time, p);
     }
 
     return nullptr;
@@ -92,21 +89,17 @@ void Simulation::processEvent(vector<Runway> &runways)
   {    
         Node *headNode = this->getPriorityQ()->getHead();
         e = headNode->getEvent();
-        cout << "Queue size: " << this->getPriorityQ()->size() << endl;
-
-
-        // cout << "reached here " + to_string(i) << endl;
-        // std::cout << "Event type: " << typeid(*e).name() << std::endl;
-        // cout << "reached here " + to_string(i) << endl;
 
         if (dynamic_cast<CompleteTakeOff *>(e))
         {
             e->finalTakeoff();
+
         }
 
         else if (dynamic_cast<CompleteLanding *>(e))
         {
             e->finalLanding();
+            
         }
 
         else if (dynamic_cast<RequestTakeoff *>(e))
@@ -117,8 +110,7 @@ void Simulation::processEvent(vector<Runway> &runways)
             event = new CompleteTakeOff(completionTime, e->getPlane(), e->getPlane()->getFlight(),
                                                e->getPlane()->getAtc(),
                                                e->getPlane()->getType(),
-                                               e->getPlane()->getRunway(), counter);
-            counter++;
+                                               e->getPlane()->getRunway());
             this->getPriorityQ()->add(event);
         }
         else if (dynamic_cast<RequestLanding *>(e))
@@ -128,12 +120,11 @@ void Simulation::processEvent(vector<Runway> &runways)
             event = new CompleteLanding(completionTime, e->getPlane(), e->getPlane()->getFlight(),
                                                e->getPlane()->getAtc(),
                                                e->getPlane()->getType(),
-                                               e->getPlane()->getRunway(), counter);
-            counter++;
+                                               e->getPlane()->getRunway());
             this->getPriorityQ()->add(event);
         }
 
-        this->getPriorityQ()->deleteHead();
+       this->getPriorityQ()->deleteHead();
      }
 }
 

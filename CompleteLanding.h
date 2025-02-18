@@ -14,7 +14,7 @@ class CompleteLanding : public Event
 
     public:
           CompleteLanding();
-          CompleteLanding(int, Plane*, string, int, string, Runway*,int);
+          CompleteLanding(int, Plane*, string, int, string, Runway*);
           int timeReq() override;
 
           void land() override;    

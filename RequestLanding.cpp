@@ -3,10 +3,9 @@
 
 using namespace std;
 
-RequestLanding::RequestLanding(int time, Plane *p, int count){
+RequestLanding::RequestLanding(int time, Plane *p){
       this->setPlane(p);
       this->setTime(time);
-      this->setCount(count);
       cout << "TIME: " + to_string(time) + " -> " + p->getName() + " " + 
       p->getFlight() + " " + "(" + to_string(p->getAtc()) + ") " +
       p->getType() + " inbound for landing\n" << endl;
@@ -20,7 +19,7 @@ void RequestLanding::land(){
      cout << "TIME: " + to_string(this->getTime()) + " -> " + this->getPlane()->getName() + " " +
     this->getPlane()->getFlight() + " " + "(" + to_string(this->getPlane()->getAtc()) + ") " + 
     this->getPlane()->getType() + " cleared for landing on runway " + to_string(this->getPlane()->getRunway()->getName())
-    + ". (time req. for landing: " + to_string(3 + this->getPlane()->getTurbulence()) + ")\n"; 
+    + ". (time req. for landing: " + to_string(3 + this->getPlane()->getTurbulence()) + ")\n" << endl; 
 }
 
 RequestLanding::~RequestLanding(){

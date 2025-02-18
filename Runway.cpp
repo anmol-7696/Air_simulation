@@ -1,13 +1,11 @@
 #include "Runway.h"
-#include "Plane.h"
-
 
 Runway::Runway(){
     onRunway = nullptr;
 }
 
 bool Runway::isAvailable(){
-    return onRunway == nullptr;
+    return planeCount == 0;
 }
 
 void Runway::assignPlane(Plane* p){
@@ -25,6 +23,10 @@ int Runway::getName(){
 void Runway::setName(int name){
     this->name = name;
 }
+
+// void Runway::setPlaneCount(int i){
+//     planeCount = i;
+// }
 
 Runway::~Runway(){
     

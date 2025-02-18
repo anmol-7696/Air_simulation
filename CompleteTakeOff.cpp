@@ -5,7 +5,7 @@
 using namespace std;
 
 CompleteTakeOff::CompleteTakeOff(int time, Plane* p, string num, int atc, string type
-                                  , Runway* runway, int count)
+                                  , Runway* runway)
 {   
     this->time = time;
     this->p = p;
@@ -13,19 +13,10 @@ CompleteTakeOff::CompleteTakeOff(int time, Plane* p, string num, int atc, string
     this->atc = atc;
     this->type = type;
     this->r = runway;
-    this->setCount(count);
 }
 
 int CompleteTakeOff::timeReq() {
     return time;
-}
-
-void CompleteTakeOff::land() {
-    // ✅ Implement landing logic (even if empty)
-}
-
-void CompleteTakeOff::takeOff() {
-    // ✅ Implement takeoff logic (even if empty)
 }
 
 void CompleteTakeOff::finalTakeoff(){
