@@ -1,3 +1,14 @@
+//-----------------------------------------
+// NAME		: ANMOLPREET SINGH
+// STUDENT NUMBER	: 7983556
+// COURSE		: COMP 2150
+// INSTRUCTOR	: OLIVIER TREMBLAY-SAVARD
+// ASSIGNMENT	: assignment 2
+//
+// REMARKS: EVENT DRIVEN SIMULATIN FOR AIR TRAFFIC CONTROL
+//-----------------------------------------
+
+// includes for file reading
 #include <iostream>
 #include <sstream>
 #include <fstream>
@@ -5,16 +16,16 @@
 #include <vector>
 #include <iostream>
 
-using namespace std;
-
+// inludes class header files to work with
 #include "Simulation.h"
 #include "Runway.h"
-#include "Plane.h"
-#include "SmallPlane.h"
+
+using namespace std;
 
 int runwaysInUse = 0; // Counter to keep track of runways under use
-int atcId = 1;
+int atcId = 1;        // Counter for the atc Id for the planes
 
+// forward declaration for functions
 void processFile(string fileName, vector<Runway> &runways, Simulation *sim);
 Event *createEvent(int t, string callsign, string num, string size, string request);
 
@@ -48,6 +59,16 @@ int main(int argc, char *argv[])
     return 0;
 }
 
+//-------------------------------------------------------------------------------
+// processFile
+//
+// PURPOSE: Reads file and starts simulation for each line of the input text
+// PARAMETERS: fileName -> name of the file
+//             runways ->  vector of runways
+//             sim     ->  object of Simulation class created in main function
+// Returns: void
+//--------------------------------------------------------------------------------
+
 void processFile(string fileName, vector<Runway> &runways, Simulation *sim)
 {
     ifstream inputFile(fileName);
@@ -62,7 +83,8 @@ void processFile(string fileName, vector<Runway> &runways, Simulation *sim)
     cout << "\n"
          << endl;
     cout << "Simulatin begins..." << endl;
-    while (getline(inputFile, line)) // Read each line
+
+    while (getline(inputFile, line))
     {
         stringstream sst(line);
         string token;
@@ -77,13 +99,12 @@ void processFile(string fileName, vector<Runway> &runways, Simulation *sim)
         Event *ev = sim->createEvent(time, callSign, flightNum, size, requestType, atcId);
         atcId++;
 
-        if (ev != nullptr)
-        {
-            sim->scheduleEvent(ev, runways);
-        }
+        // schedule event are creating it
+        sim->scheduleEvent(ev, runways);
 
         if (sim->getPriorityQ() && !(sim->getPriorityQ()->isEmpty()))
         {
+            // process event is called
             sim->processEvent(runways);
         }
     }

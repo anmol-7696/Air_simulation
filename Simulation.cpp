@@ -92,6 +92,8 @@ void Simulation::processEvent(vector<Runway> &runways)
   {    
         Node *headNode = this->getPriorityQ()->getHead();
         e = headNode->getEvent();
+        cout << "Queue size: " << this->getPriorityQ()->size() << endl;
+
 
         // cout << "reached here " + to_string(i) << endl;
         // std::cout << "Event type: " << typeid(*e).name() << std::endl;

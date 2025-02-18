@@ -6,6 +6,7 @@ class LinkedList
 {   
     private:
         Node* head;
+        int siz;
     public:
         LinkedList();
         void orderedInsert(Event*);
@@ -15,6 +16,7 @@ class LinkedList
         void printQueue();
         void deleteEvent(int);
         void add(Event*);
+        int size();
 
         void setHead(Node*);
         // destructor

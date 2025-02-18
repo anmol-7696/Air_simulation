@@ -1,3 +1,11 @@
+// CLASS: LinkedList
+     //
+     // Author: Anmolpreet Singh, 7983556
+     //
+     // REMARKS: LinkedList to store events of planes landing and takeoff
+     //
+//-------------------------------------------------------------------------
+
 #include "LinkedList.h"
 #include "Event.h"
 
@@ -23,7 +31,7 @@ void LinkedList::add(Event* e)
         curr = curr->getNext();
     }
     curr->setNext(newNode);
-
+    siz++;
 }
 
 void LinkedList::orderedInsert(Event *e)
@@ -32,7 +40,6 @@ void LinkedList::orderedInsert(Event *e)
     Node *newNode = new Node(e, nullptr);
     if (newNode == nullptr)
     {
-        // Handle memory allocation failure
         return;
     }
 
@@ -41,11 +48,10 @@ void LinkedList::orderedInsert(Event *e)
     {
         newNode->setNext(head);
         head = newNode;
-        //cout << "event added at head" << endl;
+        siz++;
         return;
     }
 
-    // Case 2: Insert in the middle or at the end
     Node *curr = head;
     while (curr->getNext() != nullptr &&
            (curr->getNext()->getEvent()->getTime() < e->getTime() ||
@@ -58,6 +64,7 @@ void LinkedList::orderedInsert(Event *e)
     // Insert new node after `curr`
     newNode->setNext(curr->getNext());
     curr->setNext(newNode);
+    siz++;
     //cout <<"event added in middle" <<endl;
 }
 
@@ -83,10 +90,15 @@ void LinkedList::deleteHead()
     Node *prev = head;
     head = head->getNext();
     delete prev;
+    siz--;
 }
 
 void LinkedList::setHead(Node* head){
     this->head = head;
+}
+
+int LinkedList::size(){
+    return siz;
 }
 
 void LinkedList::printQueue() {
