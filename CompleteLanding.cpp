@@ -23,14 +23,6 @@ int CompleteLanding::timeReq() {
     return time;
 }
 
-void CompleteLanding::land() {
-}
-
-void CompleteLanding::takeOff() {
-    
-}
-
-
 CompleteLanding::~CompleteLanding(){
 
 }
