@@ -11,8 +11,8 @@ RequestTakeoff::RequestTakeoff(int time, Plane *p) : Event(p){
       p->getType() + " ready for takeoff\n" << endl;
 }
 
-int RequestTakeoff::timeReq(){
-    return 0;
+void RequestTakeoff::dummyMethod(){
+    
 }
 
 void RequestTakeoff::takeOff(){

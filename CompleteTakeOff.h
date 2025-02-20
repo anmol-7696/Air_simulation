@@ -16,7 +16,7 @@ class CompleteTakeOff : public Event
     public:
           CompleteTakeOff();
           CompleteTakeOff(int, Plane*, string, int, string, Runway*);
-          int timeReq() override;
+          void dummyMethod() override;
 
          // void land() override;    
           //void takeOff() override; 

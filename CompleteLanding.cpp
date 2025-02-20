@@ -19,8 +19,8 @@ void CompleteLanding::finalLanding(){
       p->getType() + " has cleared the runway " + to_string(p->getRunway()->getName()) + "\n" << endl;
 }
 
-int CompleteLanding::timeReq() {
-    return time;
+void CompleteLanding::dummyMethod() {
+    
 }
 
 CompleteLanding::~CompleteLanding(){

@@ -8,7 +8,7 @@ class RequestLanding : public Event
 {   
     public:
         RequestLanding(int,Plane*);
-        int timeReq()override;
+        void dummyMethod() override;
         void land() override;
          ~RequestLanding() override;
 };

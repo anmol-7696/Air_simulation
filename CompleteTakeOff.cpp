@@ -15,8 +15,8 @@ CompleteTakeOff::CompleteTakeOff(int time, Plane* p, string num, int atc, string
     this->r = runway;
 }
 
-int CompleteTakeOff::timeReq() {
-    return time;
+void CompleteTakeOff::dummyMethod() {
+    
 }
 
 void CompleteTakeOff::finalTakeoff(){

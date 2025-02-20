@@ -10,7 +10,7 @@ class Event
          int time;
          int eventCount;
     public:
-         virtual int timeReq() = 0;
+         virtual void dummyMethod() = 0;
          Event(Plane*);
          Event();
 

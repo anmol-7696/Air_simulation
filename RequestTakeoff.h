@@ -8,7 +8,7 @@ class RequestTakeoff : public Event
 {   
     public:
         RequestTakeoff(int,Plane*);
-        int timeReq()override;
+        void dummyMethod()override;
         void takeOff() override;
        // Plane* getPlane() override;
          ~RequestTakeoff() override;

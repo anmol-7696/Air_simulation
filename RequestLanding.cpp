@@ -11,8 +11,8 @@ RequestLanding::RequestLanding(int time, Plane *p){
       p->getType() + " inbound for landing\n" << endl;
 }
 
-int RequestLanding::timeReq(){
-    return 0;
+void RequestLanding::dummyMethod(){
+    
 }
 
 void RequestLanding::land(){
