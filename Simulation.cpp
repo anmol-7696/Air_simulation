@@ -74,7 +74,7 @@ void Simulation::scheduleEvent(Event *e, vector<Runway> &runways)
     }
     else
     {
-        this->getWaitingLine()->add(e); // Add event to waiting line
+        this->getWaitingLine()->orderedInsert(e); // Add event to waiting line
     }
 }
 
@@ -144,6 +144,7 @@ Runway *Simulation::getAvailableRunway(vector<Runway> &runways)
 void Simulation::waitingToPriority(vector<Runway> &runways)
 {
     Runway *available = getAvailableRunway(runways);
+    
     if (!available)
     {
         return;

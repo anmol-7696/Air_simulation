@@ -36,15 +36,10 @@ void LinkedList::add(Event* e)
 
 void LinkedList::orderedInsert(Event *e)
 {
-
     Node *newNode = new Node(e, nullptr);
-    if (newNode == nullptr)
-    {
-        return;
-    }
 
     // Case 1: Empty list OR inserting at the head (smallest time)
-    if (head == nullptr || head->getEvent()->getTime() > e->getTime())
+    if (head == nullptr || head->getEvent()->getTime() >= e->getTime())
     {
         newNode->setNext(head);
         head = newNode;
@@ -54,9 +49,9 @@ void LinkedList::orderedInsert(Event *e)
 
     Node *curr = head;
     while (curr->getNext() != nullptr &&
-           (curr->getNext()->getEvent()->getTime() < e->getTime() ||
+           (curr->getNext()->getEvent()->getTime() <= e->getTime() ||
             (curr->getNext()->getEvent()->getTime() == e->getTime() &&
-             curr->getNext()->getEvent()->getPlane()->getAtc() < e->getPlane()->getAtc())))
+             curr->getNext()->getEvent()->getPlane()->getAtc() <= e->getPlane()->getAtc())))
     {
         curr = curr->getNext(); // Move forward
     }
