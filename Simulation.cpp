@@ -90,19 +90,19 @@ void Simulation::processEvent(vector<Runway> &runways)
         Node *headNode = this->getPriorityQ()->getHead();
         e = headNode->getEvent();
 
-        if (dynamic_cast<CompleteTakeOff *>(e))
+        if (dynamic_cast<CompleteTakeOff *>(e) != nullptr)
         {
             e->finalTakeoff();
 
         }
 
-        else if (dynamic_cast<CompleteLanding *>(e))
+        else if (dynamic_cast<CompleteLanding *>(e) != nullptr)
         {
             e->finalLanding();
             
         }
 
-        else if (dynamic_cast<RequestTakeoff *>(e))
+        else if (dynamic_cast<RequestTakeoff *>(e) != nullptr)
         {   
             e->takeOff();
             int completionTime = e->getTime() + 1 + e->getPlane()->getTurbulence();
@@ -113,7 +113,7 @@ void Simulation::processEvent(vector<Runway> &runways)
                                                e->getPlane()->getRunway());
             this->getPriorityQ()->add(event);
         }
-        else if (dynamic_cast<RequestLanding *>(e))
+        else if (dynamic_cast<RequestLanding *>(e) != nullptr)
         {
             e->land();
             int completionTime = e->getTime() + 3 + e->getPlane()->getTurbulence();
