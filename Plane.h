@@ -1,3 +1,11 @@
+// CLASS: Plane
+     //
+     // Author: Anmolpreet Singh, 7983556
+     //
+     // REMARKS: Plane superclass for all the plane types 
+     //
+//-------------------------------------------------------------------------
+
 #pragma once 
 
 #include "string"

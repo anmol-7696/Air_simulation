@@ -1,3 +1,11 @@
+// CLASS: HeavyPlane
+     //
+     // Author: Anmolpreet Singh, 7983556
+     //
+     // REMARKS: subclass for creating heavy plane 
+     //
+//-------------------------------------------------------------------------
+
 #pragma once 
 
 #include "Plane.h"

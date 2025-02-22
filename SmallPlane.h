@@ -1,3 +1,12 @@
+// CLASS: SmallPlane
+     //
+     // Author: Anmolpreet Singh, 7983556
+     //
+     // REMARKS: SmallPlane sublclass which creates smallPlane
+     //
+//-------------------------------------------------------------------------
+
+
 #pragma once 
 
 #include "Plane.h"

@@ -19,12 +19,17 @@ void CompleteTakeOff::dummyMethod() {
     
 }
 
+Plane* CompleteTakeOff::getPlane(){
+    return p;
+}
+
 void CompleteTakeOff::finalTakeoff(){
     std::cout << "TIME: " + to_string(time) + " -> " + p->getName() + " " + 
       p->getFlight() + " " + "(" + to_string(p->getAtc()) + ") " +
       p->getType() + " has cleared the runway " + to_string(p->getRunway()->getName()) + "\n" << endl;
 }
 
+// destructor 
 CompleteTakeOff::~CompleteTakeOff(){
     
 }

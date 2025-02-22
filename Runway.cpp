@@ -24,10 +24,6 @@ void Runway::setName(int name){
     this->name = name;
 }
 
-// void Runway::setPlaneCount(int i){
-//     planeCount = i;
-// }
-
 Runway::~Runway(){
     
 }

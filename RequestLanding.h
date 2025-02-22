@@ -1,3 +1,11 @@
+// CLASS: RequestLanding 
+     //
+     // Author: Anmolpreet Singh, 7983556
+     //
+     // REMARKS: creates an event when any plane requests landing 
+     //
+//-------------------------------------------------------------------------
+
 #pragma once 
 
 #include "Plane.h"

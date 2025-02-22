@@ -1,3 +1,11 @@
+// CLASS: LargePlane
+     //
+     // Author: Anmolpreet Singh, 7983556
+     //
+     // REMARKS: subclass for creating Large Plane 
+     //
+//-------------------------------------------------------------------------
+
 #pragma once 
 
 #include "Plane.h"

@@ -1,3 +1,11 @@
+// CLASS: RequestTakeOff
+     //
+     // Author: Anmolpreet Singh, 7983556
+     //
+     // REMARKS: creates an event when any plane requests takeOff
+     //
+//-------------------------------------------------------------------------
+
 #pragma once 
 
 #include "Plane.h"

@@ -1,16 +1,22 @@
+// CLASS: Event
+     //
+     // Author: Anmolpreet Singh, 7983556
+     //
+     // REMARKS: event abstract class 
+     //
+//-------------------------------------------------------------------------
+
 #pragma once 
 
 #include "Plane.h"
 
-// we can make this class as abstract 
 class Event 
 {   
     private:
-         Plane* plane;
-         int time;
-         int eventCount;
+         Plane* plane; // plane associated with the event 
+         int time;     // time for the event to schedule 
     public:
-         virtual void dummyMethod() = 0;
+         virtual void dummyMethod() = 0; // dummy method to make class abstract 
          Event(Plane*);
          Event();
 
@@ -21,12 +27,12 @@ class Event
 
 
          int getCount();
-         Plane* getPlane();
+         virtual Plane* getPlane();
          virtual void land();
          virtual void takeOff();
 
          virtual void finalLanding();
          virtual void finalTakeoff();
 
-         virtual ~Event();
-};
+         virtual ~Event();         // destructor for the event class 
+};  

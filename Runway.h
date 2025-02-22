@@ -1,3 +1,12 @@
+// CLASS: Runway 
+     //
+     // Author: Anmolpreet Singh, 7983556
+     //
+     // REMARKS: class for Runways 
+     //
+//-------------------------------------------------------------------------
+
+
 #pragma once 
 
 class Plane;
@@ -13,8 +22,6 @@ class Runway
         bool isAvailable();
         void assignPlane(Plane*);
         void removePlane();
-        // int getPlaneCount();
-        // void setPlaneCount(int);
         int getName();
         void setName(int);
 

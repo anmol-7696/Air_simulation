@@ -18,17 +18,11 @@ void Event::setPlane(Plane* p){
     this->plane = p;
 }
 
-void Event::setCount(int i){
-    this->eventCount = i;
-}
-
-int Event::getCount(){
-    return eventCount;
-}
-
 Plane* Event::getPlane(){
     return plane;
 }
+
+
 void Event::finalLanding(){
 
 }
@@ -44,6 +38,7 @@ void Event::takeOff(){
     
 }
 
+// destructor 
 Event::~Event(){
     
 }

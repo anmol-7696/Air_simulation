@@ -1,9 +1,9 @@
 // CLASS: LinkedList
-     //
-     // Author: Anmolpreet Singh, 7983556
-     //
-     // REMARKS: LinkedList to store events of planes landing and takeoff
-     //
+//
+// Author: Anmolpreet Singh, 7983556
+//
+// REMARKS: LinkedList to store events of planes landing and takeoff
+//
 //-------------------------------------------------------------------------
 
 #include "LinkedList.h"
@@ -18,21 +18,38 @@ LinkedList::LinkedList()
     head = nullptr;
 }
 
-void LinkedList::add(Event* e)
-{   
-    Node* newNode = new Node(e,nullptr);
+//-------------------------------------------------------------------------------
+// add()
+//
+// PURPOSE: adds event to the end of the linkedlist 
+// PARAMETERS: Event pointer 
+// Returns: void 
+//--------------------------------------------------------------------------------
 
-    if(head == nullptr){
+void LinkedList::add(Event *e)
+{
+    Node *newNode = new Node(e, nullptr);
+
+    if (head == nullptr)
+    {
         head = newNode;
     }
-   
-    Node* curr = head;
-    while(curr->getNext() != nullptr){
+
+    Node *curr = head;
+    while (curr->getNext() != nullptr)
+    {
         curr = curr->getNext();
     }
     curr->setNext(newNode);
-    siz++;
 }
+
+//-------------------------------------------------------------------------------
+// orderedInsert()
+//
+// PURPOSE: adds the event pointer in ordered insertion 
+// PARAMETERS: Event pointer 
+// Returns: void 
+//--------------------------------------------------------------------------------
 
 void LinkedList::orderedInsert(Event *e)
 {
@@ -43,7 +60,7 @@ void LinkedList::orderedInsert(Event *e)
     {
         newNode->setNext(head);
         head = newNode;
-        siz++;
+
         return;
     }
 
@@ -56,18 +73,30 @@ void LinkedList::orderedInsert(Event *e)
         curr = curr->getNext(); // Move forward
     }
 
+    if (curr->getEvent() == e)
+    {
+        cout << "Warning: Duplicate event detected, skipping insertion." << endl;
+        return; // Prevent re-inserting the same event
+    }
+
     // Insert new node after `curr`
     newNode->setNext(curr->getNext());
     curr->setNext(newNode);
-    siz++;
-    //cout <<"event added in middle" <<endl;
+
+    // cout <<"event added in middle" <<endl;
 }
 
+//-------------------------------------------------------------------------------
+// isEmpty()
+//
+// PURPOSE: returns head == nullptr 
+// PARAMETERS: none
+// Returns: boolean operator 
+//--------------------------------------------------------------------------------
 
 bool LinkedList::isEmpty()
-{   
+{
     return head == nullptr;
-
 }
 
 Node *LinkedList::getHead()
@@ -75,6 +104,13 @@ Node *LinkedList::getHead()
     return head;
 }
 
+//-------------------------------------------------------------------------------
+// deleteHead()
+//
+// PURPOSE: removes the head from the linkedlist 
+// PARAMETERS: none
+// Returns: void 
+//--------------------------------------------------------------------------------
 void LinkedList::deleteHead()
 {
     if (head == nullptr)
@@ -85,27 +121,10 @@ void LinkedList::deleteHead()
     Node *prev = head;
     head = head->getNext();
     delete prev;
-    siz--;
 }
 
-void LinkedList::setHead(Node* head){
-    this->head = head;
+// destructor 
+LinkedList::~LinkedList()
+{
+    delete head;
 }
-
-int LinkedList::size(){
-    return siz;
-}
-
-void LinkedList::printQueue() {
-    Node* curr = head;
-    while (curr != nullptr) {
-        cout << "Event time: " << curr->getEvent()->getPlane()->getName() << endl;
-        curr = curr->getNext();
-    }
-}
-
-
-LinkedList::~LinkedList(){
-   delete head;
-}
-

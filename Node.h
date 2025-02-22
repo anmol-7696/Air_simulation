@@ -1,3 +1,12 @@
+// CLASS: Node 
+     //
+     // Author: Anmolpreet Singh, 7983556
+     //
+     // REMARKS: Node class for storing events 
+     //
+//-------------------------------------------------------------------------
+
+
 #pragma once
 
 #include "Event.h"

@@ -28,7 +28,7 @@ int atcId = 1;        // Counter for the atc Id for the planes
 // forward declaration for functions
 void processFile(string fileName, vector<Runway> &runways, Simulation *sim);
 Event *createEvent(int t, string callsign, string num, string size, string request);
-void printMessage(vector<Runway>);
+void printMessage(vector<Runway> , Simulation* sim);
 
 int main(int argc, char *argv[])
 {
@@ -111,14 +111,23 @@ void processFile(string fileName, vector<Runway>& runways, Simulation *sim)
     }
 
     inputFile.close();
-    printMessage(runways);
+    printMessage(runways, sim);
 }
 
-void printMessage(vector<Runway> runways){
+//-------------------------------------------------------------------------------
+// printMessage 
+//
+// PURPOSE: prints the final message after the simulation ends 
+// PARAMETERS: runways -> vector of runways 
+//             sim     ->  object of Simulation class created in main function
+// Returns: void
+//--------------------------------------------------------------------------------
+
+void printMessage(vector<Runway> runways, Simulation* sim){
     cout << "#######################\n"
          <<  "The simulation has ended.\n"
          <<   "The number of runways was " + std::to_string(runways.size()) + "\n"
-         <<   "The total amount of time wasted because runways were not available was 52 minutes.\n"
+         <<   "The total amount of time wasted because runways were not available was " + std::to_string(sim->getTimeWasted()) + " minutes." + "\n"
          <<   "#######################.\n" 
          << endl;
 }
