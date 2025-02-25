@@ -23,15 +23,15 @@ Simulation::Simulation()
 }
 
 //-------------------------------------------------------------------------------
-// createEvent() 
+// createEvent()
 //
 // PURPOSE: creates an event
-// PARAMETERS: time -> time when the event is scheduled for 
-//             name -> name of the plane 
-//             flightNum -> flight number 
-//             type ->  plane type 
-//             request -> type of request 
-//             atc -> atc id for the plane 
+// PARAMETERS: time -> time when the event is scheduled for
+//             name -> name of the plane
+//             flightNum -> flight number
+//             type ->  plane type
+//             request -> type of request
+//             atc -> atc id for the plane
 // Returns: Event*
 //--------------------------------------------------------------------------------
 Event *Simulation::createEvent(int time, string name, string flightNum, string type, string request,
@@ -74,12 +74,12 @@ Event *Simulation::createEvent(int time, string name, string flightNum, string t
 }
 
 //-------------------------------------------------------------------------------
-// scheduleEvent() 
+// scheduleEvent()
 //
-// PURPOSE: adds event into the priority queue or waiting line depending on the availablity of runways 
-// PARAMETERS: e-> event pointer 
+// PURPOSE: adds event into the priority queue or waiting line depending on the availablity of runways
+// PARAMETERS: e-> event pointer
 //             runways -> vector reference of runways
-// Returns: void 
+// Returns: void
 //--------------------------------------------------------------------------------
 void Simulation::scheduleEvent(Event *e, vector<Runway> &runways)
 {
@@ -101,21 +101,21 @@ void Simulation::scheduleEvent(Event *e, vector<Runway> &runways)
 }
 
 //-------------------------------------------------------------------------------
-// processEvent() 
+// processEvent()
 //
 // PURPOSE: processes simulation for the given line of code (text file is processed one by one )
-// PARAMETERS: runways reference 
-// Returns: void 
+// PARAMETERS: runways reference
+// Returns: void
 //--------------------------------------------------------------------------------
 void Simulation::processEvent(vector<Runway> &runways)
-{   
-  int i = 1;
+{
+    int i = 1;
 
-  Event* e = nullptr;
-  Event* event = nullptr;
+    Event *e = nullptr;
+    Event *event = nullptr;
 
- while (!(this->getPriorityQ()->isEmpty()))
-  {    
+    while (!(this->getPriorityQ()->isEmpty()))
+    {
         Node *headNode = this->getPriorityQ()->getHead();
         e = headNode->getEvent();
 
@@ -132,36 +132,36 @@ void Simulation::processEvent(vector<Runway> &runways)
         }
 
         else if (dynamic_cast<RequestTakeoff *>(e) != nullptr)
-        {   
+        {
             e->takeOff();
             int completionTime = e->getTime() + 1 + e->getPlane()->getTurbulence();
 
-            event = new CompleteTakeOff(completionTime , e->getPlane(), e->getPlane()->getFlight(),
-                                               e->getPlane()->getAtc(),
-                                               e->getPlane()->getType(),
-                                               e->getPlane()->getRunway());
+            event = new CompleteTakeOff(completionTime, e->getPlane(), e->getPlane()->getFlight(),
+                                        e->getPlane()->getAtc(),
+                                        e->getPlane()->getType(),
+                                        e->getPlane()->getRunway());
             this->getPriorityQ()->add(event);
         }
         else if (dynamic_cast<RequestLanding *>(e) != nullptr)
         {
             e->land();
             int completionTime = e->getTime() + 3 + e->getPlane()->getTurbulence();
-            event = new CompleteLanding(completionTime , e->getPlane(), e->getPlane()->getFlight(),
-                                               e->getPlane()->getAtc(),
-                                               e->getPlane()->getType(),
-                                               e->getPlane()->getRunway());
+            event = new CompleteLanding(completionTime, e->getPlane(), e->getPlane()->getFlight(),
+                                        e->getPlane()->getAtc(),
+                                        e->getPlane()->getType(),
+                                        e->getPlane()->getRunway());
             this->getPriorityQ()->add(event);
         }
 
-         this->getPriorityQ()->deleteHead();
-     }
+        this->getPriorityQ()->deleteHead();
+    }
 }
 
 //-------------------------------------------------------------------------------
-// getAvailableRunway() 
+// getAvailableRunway()
 //
-// PURPOSE: available runway 
-// PARAMETERS: runways reference 
+// PURPOSE: available runway
+// PARAMETERS: runways reference
 // Returns: Runway*
 //--------------------------------------------------------------------------------
 Runway *Simulation::getAvailableRunway(vector<Runway> &runways)
@@ -177,16 +177,16 @@ Runway *Simulation::getAvailableRunway(vector<Runway> &runways)
 }
 
 //-------------------------------------------------------------------------------
-// waitingToPriority() 
+// waitingToPriority()
 //
-// PURPOSE: adds events in waiting line to priority queue 
-// PARAMETERS: runways vector reference 
-// Returns: void 
+// PURPOSE: adds events in waiting line to priority queue
+// PARAMETERS: runways vector reference
+// Returns: void
 //--------------------------------------------------------------------------------
 void Simulation::waitingToPriority(vector<Runway> &runways)
 {
     Runway *available = getAvailableRunway(runways);
-    
+
     if (!available)
     {
         return;
@@ -214,27 +214,23 @@ LinkedList *Simulation::getWaitingLine()
     return this->waitingLine;
 }
 
-int Simulation::getTimeWasted(){
+int Simulation::getTimeWasted()
+{
     return timeWasted;
 }
 
-// destructor for the simulation class 
+// destructor for the simulation class
 Simulation::~Simulation()
 {
     while (!priorityQueue->isEmpty())
     {
-        Event *e = priorityQueue->getHead()->getEvent();
         priorityQueue->deleteHead();
-        delete e;
     }
     delete priorityQueue;
 
     while (!waitingLine->isEmpty())
     {
-        Event *e = waitingLine->getHead()->getEvent();
         waitingLine->deleteHead();
-        delete e;
     }
     delete waitingLine;
-
- }
+}

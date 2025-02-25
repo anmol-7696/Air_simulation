@@ -16,21 +16,28 @@ class Event
          Plane* plane; // plane associated with the event 
          int time;     // time for the event to schedule 
     public:
-         virtual void dummyMethod() = 0; // dummy method to make class abstract 
-         Event(Plane*);
+         // dummy method to make class abstract 
+         virtual void dummyMethod() = 0; 
+        
+         // constructors 
          Event();
-
-         int getTime();
+         Event(Plane*);
+         
+         // setters 
          void setTime(int);
          void setPlane(Plane*);
          void setCount(int);
 
-
+         // getters 
+         int getTime();
          int getCount();
          virtual Plane* getPlane();
+
+         // virtual methods for overriding in requestTakeoff and requestLanding classes
          virtual void land();
          virtual void takeOff();
 
+         // virtual methods for overriding in completeTakeoff and completeLandig classes
          virtual void finalLanding();
          virtual void finalTakeoff();
 
